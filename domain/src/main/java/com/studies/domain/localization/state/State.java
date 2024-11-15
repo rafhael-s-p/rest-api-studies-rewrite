@@ -28,6 +28,6 @@ public class State extends AggregateRoot<StateID> {
 
     @Override
     public void validate(ValidationHandler handler) {
-
+        new StateValidator(this, handler).validate();
     }
 }
