@@ -26,6 +26,11 @@ public class State extends AggregateRoot<StateID> {
         return name;
     }
 
+    public State update(final String anUpdatedName) {
+        this.name = anUpdatedName;
+        return this;
+    }
+
     @Override
     public void validate(ValidationHandler handler) {
         new StateValidator(this, handler).validate();
