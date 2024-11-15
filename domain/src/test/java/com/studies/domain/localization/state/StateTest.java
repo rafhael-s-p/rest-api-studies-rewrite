@@ -84,4 +84,35 @@ public class StateTest {
         Assertions.assertEquals(expectedErrorCount, currentException.getErrors().size());
         Assertions.assertEquals(expectedErrorMessage, currentException.getErrors().getFirst().message());
     }
+
+    @Test
+    void givenAValidState_whenCallUpdate_thenReturnUpdatedState() {
+        final var nameWithTypo = "California";
+        final var expectedName = "Callifornia";
+
+        final var aState = State.newState(nameWithTypo);
+
+        Assertions.assertDoesNotThrow(() -> aState.validate(new ThrowsValidationHandler()));
+
+        final var currentState = aState.update(expectedName);
+
+        Assertions.assertDoesNotThrow(() -> currentState.validate(new ThrowsValidationHandler()));
+
+        Assertions.assertEquals(aState.getId(), currentState.getId());
+        Assertions.assertEquals(expectedName, currentState.getName());
+    }
+
+    @Test
+    void givenAValidState_whenCallUpdateWithInvalidParams_thenReturnStateUpdated() {
+        final String expectedName = null;
+
+        final var aState = State.newState("California");
+
+        Assertions.assertDoesNotThrow(() -> aState.validate(new ThrowsValidationHandler()));
+
+        final var currentState = aState.update(expectedName);
+
+        Assertions.assertEquals(aState.getId(), currentState.getId());
+        Assertions.assertEquals(expectedName, currentState.getName());
+    }
 }
