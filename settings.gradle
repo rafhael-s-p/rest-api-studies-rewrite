@@ -1,0 +1,5 @@
+rootProject.name = 'Food Orders API'
+include 'domain'
+include 'application'
+include 'infrastructure'
+
