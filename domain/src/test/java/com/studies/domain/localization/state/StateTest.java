@@ -3,8 +3,9 @@ package com.studies.domain.localization.state;
 import com.studies.domain.exceptions.DomainException;
 import com.studies.domain.utils.RandomStringGenerator;
 import com.studies.domain.validation.handle.ThrowsValidationHandler;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class StateTest {
 
@@ -14,9 +15,9 @@ public class StateTest {
 
         final var currentState = State.newState(expectedName);
 
-        Assertions.assertNotNull(currentState);
-        Assertions.assertNotNull(currentState.getId());
-        Assertions.assertEquals(expectedName, currentState.getName());
+        assertNotNull(currentState);
+        assertNotNull(currentState.getId());
+        assertEquals(expectedName, currentState.getName());
     }
 
     @Test
@@ -27,11 +28,11 @@ public class StateTest {
 
         final var currentState = State.newState(expectedName);
         final var currentException =
-                Assertions.assertThrows(DomainException.class,
+                assertThrows(DomainException.class,
                         () -> currentState.validate(new ThrowsValidationHandler()));
 
-        Assertions.assertEquals(expectedErrorCount, currentException.getErrors().size());
-        Assertions.assertEquals(expectedErrorMessage, currentException.getErrors().getFirst().message());
+        assertEquals(expectedErrorCount, currentException.getErrors().size());
+        assertEquals(expectedErrorMessage, currentException.getErrors().getFirst().message());
 
     }
 
@@ -45,10 +46,10 @@ public class StateTest {
                 State.newState(expectedName);
 
         final var currentException =
-                Assertions.assertThrows(DomainException.class, () -> currentState.validate(new ThrowsValidationHandler()));
+                assertThrows(DomainException.class, () -> currentState.validate(new ThrowsValidationHandler()));
 
-        Assertions.assertEquals(expectedErrorCount, currentException.getErrors().size());
-        Assertions.assertEquals(expectedErrorMessage, currentException.getErrors().getFirst().message());
+        assertEquals(expectedErrorCount, currentException.getErrors().size());
+        assertEquals(expectedErrorMessage, currentException.getErrors().getFirst().message());
     }
 
     @Test
@@ -61,11 +62,11 @@ public class StateTest {
                 State.newState(expectedName);
 
         final var currentException =
-                Assertions.assertThrows(DomainException.class,
+                assertThrows(DomainException.class,
                         () -> currentState.validate(new ThrowsValidationHandler()));
 
-        Assertions.assertEquals(expectedErrorCount, currentException.getErrors().size());
-        Assertions.assertEquals(expectedErrorMessage, currentException.getErrors().getFirst().message());
+        assertEquals(expectedErrorCount, currentException.getErrors().size());
+        assertEquals(expectedErrorMessage, currentException.getErrors().getFirst().message());
     }
 
     @Test
@@ -78,11 +79,11 @@ public class StateTest {
                 State.newState(expectedName);
 
         final var currentException =
-                Assertions.assertThrows(DomainException.class,
+                assertThrows(DomainException.class,
                         () -> currentState.validate(new ThrowsValidationHandler()));
 
-        Assertions.assertEquals(expectedErrorCount, currentException.getErrors().size());
-        Assertions.assertEquals(expectedErrorMessage, currentException.getErrors().getFirst().message());
+        assertEquals(expectedErrorCount, currentException.getErrors().size());
+        assertEquals(expectedErrorMessage, currentException.getErrors().getFirst().message());
     }
 
     @Test
@@ -92,14 +93,14 @@ public class StateTest {
 
         final var aState = State.newState(nameWithTypo);
 
-        Assertions.assertDoesNotThrow(() -> aState.validate(new ThrowsValidationHandler()));
+        assertDoesNotThrow(() -> aState.validate(new ThrowsValidationHandler()));
 
         final var currentState = aState.update(expectedName);
 
-        Assertions.assertDoesNotThrow(() -> currentState.validate(new ThrowsValidationHandler()));
+        assertDoesNotThrow(() -> currentState.validate(new ThrowsValidationHandler()));
 
-        Assertions.assertEquals(aState.getId(), currentState.getId());
-        Assertions.assertEquals(expectedName, currentState.getName());
+        assertEquals(aState.getId(), currentState.getId());
+        assertEquals(expectedName, currentState.getName());
     }
 
     @Test
@@ -108,11 +109,11 @@ public class StateTest {
 
         final var aState = State.newState("California");
 
-        Assertions.assertDoesNotThrow(() -> aState.validate(new ThrowsValidationHandler()));
+        assertDoesNotThrow(() -> aState.validate(new ThrowsValidationHandler()));
 
         final var currentState = aState.update(expectedName);
 
-        Assertions.assertEquals(aState.getId(), currentState.getId());
-        Assertions.assertEquals(expectedName, currentState.getName());
+        assertEquals(aState.getId(), currentState.getId());
+        assertEquals(expectedName, currentState.getName());
     }
 }
